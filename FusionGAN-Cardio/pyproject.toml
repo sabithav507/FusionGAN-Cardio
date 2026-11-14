@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+[project]
+name = "fusiongan-cardio"
+version = "1.0.0"
+description = "Reproducible conditional echocardiographic synthesis and quality-controlled augmentation"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [{name = "FusionGAN-Cardio Research Implementation"}]
+dependencies = ["torch>=2.1", "torchvision>=0.16", "numpy>=1.24", "pandas>=2.0", "Pillow>=9.4", "scipy>=1.10", "scikit-learn>=1.3", "PyYAML>=6.0", "tqdm>=4.64", "matplotlib>=3.7", "opencv-python-headless>=4.7", "nibabel>=5.1", "scikit-image>=0.21"]
+[project.optional-dependencies]
+metrics = ["lpips>=0.1.4", "torchmetrics>=1.3"]
+dev = ["pytest>=7.4"]
+[project.scripts]
+fusiongan = "fusiongan_cardio.cli:main"
+[tool.setuptools.packages.find]
+where = ["src"]
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

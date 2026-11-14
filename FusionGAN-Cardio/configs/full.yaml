@@ -1,0 +1,89 @@
+project:
+  name: FusionGAN-Cardio
+  output_dir: outputs
+  seed: 42
+  device: auto
+  num_workers: 4
+  amp: true
+
+data:
+  image_size: 256
+  channels: 1
+  tmed_manifest: data/processed/tmed_manifest.csv
+  echonet_manifest: data/processed/echonet_manifest.csv
+  camus_manifest: data/processed/camus_manifest.csv
+  max_frames_per_video: 5
+  tmed_max_frames_per_view_study: 2
+  balance_ratio: 0.90
+  # Samples lacking valid view labels cannot be used as condition labels.
+  use_other_view: true
+
+model:
+  latent_dim: 128
+  condition_embed_dim: 32
+  base_channels: 64
+  fused_channels: 64
+  attention_reduction: 8
+  discriminator_base: 32
+  pretrained: true
+  ablation:
+    adaptive_fusion: true
+    dual_attention: true
+    multi_scale: true
+    structure_loss: true
+
+training:
+  epochs: 300
+  batch_size: 16
+  lr_g: 0.0002
+  lr_d: 0.0002
+  beta1: 0.0
+  beta2: 0.9
+  weight_decay: 0.0
+  val_every: 2
+  patience: 30
+  grad_clip: 0.0
+  reference_bank_limit: 10000
+  feature_match_layers: 4
+  weights:
+    adv: 1.0
+    fm: 10.0
+    cv: 1.0
+    structure: 5.0
+    mode: 1.0
+    tv: 0.00001
+
+auxiliary:
+  epochs: 30
+  batch_size: 16
+  lr: 0.0001
+  patience: 8
+  encoder_dim: 128
+  simclr_temperature: 0.2
+
+quality:
+  class_threshold: 0.80
+  combined_threshold: 0.75
+  class_weight: 0.40
+  realism_weight: 0.30
+  diversity_weight: 0.30
+  k_neighbors: 5
+  generation_batch: 16
+  max_attempts_per_group: 10000
+  max_synthetic_per_group: 100000
+  allow_shortfall: true
+
+classifier:
+  architecture: efficientnet_b0
+  epochs: 50
+  batch_size: 32
+  lr: 0.0001
+  weight_decay: 0.0001
+  patience: 10
+  synthetic_batch_fraction: auto
+
+benchmark:
+  seeds: [7, 21, 42, 77, 123, 256, 512, 1024, 2048, 4096]
+  bootstrap_reps: 10000
+  pr_k: 3
+  eval_batch_size: 32

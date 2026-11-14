@@ -1,0 +1,77 @@
+project:
+  name: FusionGAN-Cardio-smoke
+  output_dir: outputs/smoke
+  seed: 42
+  device: cpu
+  num_workers: 0
+  amp: false
+
+data:
+  image_size: 32
+  channels: 1
+  tmed_manifest: data/smoke/tmed.csv
+  echonet_manifest: data/smoke/echonet.csv
+  camus_manifest: data/smoke/camus.csv
+  balance_ratio: 0.9
+  use_other_view: true
+model:
+  latent_dim: 16
+  condition_embed_dim: 8
+  base_channels: 8
+  fused_channels: 8
+  discriminator_base: 8
+  attention_reduction: 4
+  pretrained: false
+  ablation:
+    adaptive_fusion: true
+    dual_attention: true
+    multi_scale: true
+    structure_loss: true
+training:
+  epochs: 1
+  batch_size: 2
+  lr_g: 0.0002
+  lr_d: 0.0002
+  beta1: 0.0
+  beta2: 0.9
+  val_every: 1
+  patience: 2
+  grad_clip: 0
+  reference_bank_limit: 100
+  feature_match_layers: 4
+  weights:
+    adv: 1.0
+    fm: 1.0
+    cv: 1.0
+    structure: 0.1
+    mode: 0.2
+    tv: 0.00001
+auxiliary:
+  epochs: 1
+  batch_size: 2
+  lr: 0.0001
+  patience: 2
+  encoder_dim: 32
+  simclr_temperature: 0.2
+quality:
+  class_threshold: 0.0
+  combined_threshold: 0.0
+  class_weight: 0.4
+  realism_weight: 0.3
+  diversity_weight: 0.3
+  k_neighbors: 2
+  generation_batch: 2
+  max_attempts_per_group: 12
+  allow_shortfall: true
+classifier:
+  architecture: tiny
+  epochs: 1
+  batch_size: 2
+  lr: 0.001
+  weight_decay: 0.0001
+  patience: 2
+benchmark:
+  seeds: [7, 21]
+  bootstrap_reps: 100
+  pr_k: 2
+  eval_batch_size: 2
