@@ -1,3 +1,5 @@
+[![GitHub Repository](https://img.shields.io/badge/GitHub-Repository-black?logo=github)](https://github.com/sabithav507/FusionGAN-Cardio)
+
 [![DOI](https://zenodo.org/badge/1457415116.svg)](https://doi.org/10.5281/zenodo.24213570)
 
 # FusionGAN-Cardio
