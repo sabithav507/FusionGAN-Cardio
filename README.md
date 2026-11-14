@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/1457415116.svg)](https://doi.org/10.5281/zenodo.24213570)
+
 # FusionGAN-Cardio
 
 **A Multi-Level Feature Fusion Generative Adversarial Network for Synthetic Echocardiographic Image Generation and Quality-Controlled Augmentation for Cardiovascular Disease Classification**
