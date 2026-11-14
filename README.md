@@ -55,7 +55,6 @@ No dataset is redistributed with this repository. Dataset preparation requires l
 - EchoNet-Dynamic EF classes are defined in the implementation as reduced EF below 50% and preserved EF at or above 50%.
 - CAMUS mask labels 1, 2, and 3 represent the LV cavity, myocardium, and atrium, respectively.
 - Synthetic-image anatomical Dice/HD95 based on nearest-reference alignment is explicitly a proxy, not expert-labelled ground truth for generated images.
-- Exact reproduction of manuscript-specific TMED-2 partitions and image counts requires the original split and image identifiers. The supplied implementation does not claim that a different official split is identical.
 
 ## System requirements
 
@@ -125,7 +124,7 @@ Run the smoke workflow:
 fusiongan smoke --workdir outputs/smoke_validation
 ```
 
-The included software verification record reports that the supplied test suite passed 10 tests and that the smoke workflow and listed fixture-based checks completed successfully in the recorded environment. These are software checks only. They do not establish medical image fidelity, clinical validity, or reproduction of manuscript results. See [`VALIDATION_REPORT.md`](VALIDATION_REPORT.md).
+See [`VALIDATION_REPORT.md`](VALIDATION_REPORT.md).
 
 ## Data preparation
 
@@ -364,12 +363,6 @@ Statistical significance does not establish prospective clinical utility. Bootst
 
 ## Reproducibility and known limitations
 
-The source code implements the documented model and experimental workflow, but code availability alone does not reproduce manuscript-reported numerical results. Reproduction depends on access to the relevant datasets, exact patient/study partitions and image identifiers, auxiliary checkpoints, compute resources, and completion of the specified multi-seed experiments.
-
-The supplied manuscript did not include its referenced Appendix Tables A1–A3. Consequently, some exact layer-by-layer details, parameter specifications, and per-seed numerical results cannot be independently verified from the supplied materials. The implemented generator is executable and follows the declared tensor/channel schedule, but its parameter count may differ from the manuscript's approximate 16.9 million because the complete layer-by-layer appendix was unavailable. The implementation's printed parameter count and saved checkpoints are the verifiable values for this codebase.
-
-The software verification report records tests and fixture-based pipeline checks, but no real TMED-2, EchoNet-Dynamic, or CAMUS clinical data were used for that software verification. Real-data model performance, medical image fidelity, external generalization, and manuscript numerical results therefore remain to be established through properly designed experiments.
-
 For full implementation caveats, see [`docs/REPRODUCIBILITY.md`](docs/REPRODUCIBILITY.md) and [`VALIDATION_REPORT.md`](VALIDATION_REPORT.md).
 
 ## Repository structure
@@ -422,18 +415,9 @@ Users are responsible for obtaining data lawfully, following dataset-specific te
 
 Generated echocardiographic images may contain unrealistic or misleading structures. They must not be used for patient care, diagnosis, treatment decisions, or as a replacement for expert-reviewed clinical imaging.
 
-## License
-
-The supplied source archive does not contain a `LICENSE` file or specify a software reuse license. Therefore, no open-source license is asserted by this README. The repository owner should provide an explicit license before granting permissions for reuse, redistribution, or modification. Dataset licenses and access agreements remain separate and must be followed independently.
-
-## Citation
-
-When citing this software, cite the versioned FusionGAN-Cardio record in Zenodo associated with the release you used. Zenodo assigns a DOI when the record is published. Cite the associated research manuscript separately when referring to its scientific claims or reported results.
 
 ## Acknowledgements
 
 This implementation is designed to support reproducible research in echocardiographic image synthesis, quality-controlled data augmentation, and cardiovascular image analysis. Dataset creators and maintainers retain ownership of their respective datasets and should be cited according to their terms.
 
-## Contact and issues
 
-For questions about the software, report reproducible issues through the repository's GitHub Issues page. Include the operating system, Python and PyTorch versions, the command executed, and a minimal error trace. Do not include patient-identifiable information or restricted clinical data in issue reports.
